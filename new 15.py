@@ -3,7 +3,7 @@ from io import StringIO
 
 st.set_page_config(page_title="Security Demo — Harmless", page_icon="🔒", layout="centered")
 st.title("🔒 Security Demo — Harmless & With Consent")
-st.write("This is a **safe** interview demo. It shows a banner and lets you download a benign proof file.")
+st.write("This is a **safe**")
 
 # Big banner
 st.markdown(
@@ -12,9 +12,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-payload = """This is a harmless demo file.
+payload = """Don't worry, This is a harmless demo file.
 Proof token: DEMO-PROOF-2025-XYZ
-Created by: [Your Name] — for interview demo only.
+Created by: Vj.
 """
 
 # Download button (user-initiated; browsers will allow)
@@ -28,3 +28,4 @@ st.download_button(
 
 with st.expander("Preview file contents"):
     st.code(payload, language="text")
+
