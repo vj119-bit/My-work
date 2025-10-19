@@ -3,12 +3,12 @@ import streamlit.components.v1 as components
 
 st.set_page_config(page_title="Security Demo — Harmless", page_icon="🔒", layout="centered")
 st.title("🔒 Security Demo — Harmless & With Consent")
-st.write("Opening this page will try to download a benign proof file automatically. Some browsers may block automatic downloads — a fallback button is provided.")
+st.write("Don’t worry, this is a simple, harmless file that won’t cause any issues")
 
 # ---- harmless payload ----
 payload = """This is a harmless demo file.
 Proof token: DEMO-PROOF-2025-XYZ
-Created by: [Your Name] — for interview demo only.
+Created by: Vj.
 """
 
 # Big banner
@@ -76,3 +76,4 @@ with st.expander("Preview file contents"):
     st.code(payload, language="text")
 
 st.caption("Tip: If auto-download didn’t trigger, try clicking the button above or open the link with '?dl=1' appended (e.g., https://my-work-vj.streamlit.app/?dl=1).")
+
