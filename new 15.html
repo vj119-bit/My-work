@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Security Demo — NOT MALICIOUS</title>
+  <style>
+    :root{--bg:#0f1724;--accent:#ff3860;--card:#0b1220;--muted:#9aa4b2}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{display:grid;place-items:center;background:
+      linear-gradient(180deg,#071026 0%, #0f1724 100%);color:#e6eef6;padding:24px}
+    .card{width:min(880px,96%);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+      border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    h1{font-size:28px;margin:0 0 10px}
+    p{color:var(--muted);margin:6px 0 18px}
+    .alert{
+      background:linear-gradient(90deg, rgba(255,56,96,0.12), rgba(255,120,120,0.04));
+      color:var(--accent);padding:18px;border-radius:10px;margin-bottom:18px;
+      display:flex;gap:12px;align-items:center;font-weight:600}
+    .big{font-size:42px;line-height:1;color:#ffd3d8;margin:12px 0}
+    .controls{display:flex;gap:12px;flex-wrap:wrap}
+    button{background:#061226;border:none;padding:12px 16px;border-radius:10px;color:#fff;
+      cursor:pointer;box-shadow:0 6px 18px rgba(2,6,23,0.6);font-weight:600}
+    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .foot{font-size:13px;color:var(--muted);margin-top:14px}
+    pre{background:#071026;padding:12px;border-radius:8px;overflow:auto;color:#bcd2ee}
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-labelledby="title">
+    <h1 id="title">Security demo — controlled, ethical</h1>
+    <div class="alert">Demo mode — harmless file. Use only with permission.</div>
+
+    <div class="big" id="bigText">You have been hacked. (Demo)</div>
+
+    <p>This is a safe demonstration page you can use in interviews. Below is a harmless file you can download that contains a short proof-string. Modern browsers may block automatic downloads — use the download button to show how a victim UI might behave and how defenses detect this.</p>
+
+    <div class="controls">
+      <button id="downloadBtn">Download proof file</button>
+      <button class="secondary" id="showPayloadBtn">Show file contents</button>
+    </div>
+
+    <div class="foot">Tip: host this page on GitHub Pages or run locally with <code>python -m http.server</code> and show the URL during your demo.</div>
+
+    <h3 style="margin-top:18px">File contents (preview)</h3>
+    <pre id="payloadPreview">This is a harmless demo file.
+Proof token: DEMO-PROOF-2025-XYZ
+Created by: [Your Name] — for interview demo only.
+</pre>
+  </div>
+
+<script>
+  const downloadBtn = document.getElementById('downloadBtn');
+  const showBtn = document.getElementById('showPayloadBtn');
+  const payload = `This is a harmless demo file.
+Proof token: DEMO-PROOF-2025-XYZ
+Created by: [Your Name] — for interview demo only.
+`;
+
+  function triggerDownload(filename, text) {
+    const blob = new Blob([text], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=> URL.revokeObjectURL(url), 5000);
+  }
+
+  downloadBtn.addEventListener('click', () => {
+    triggerDownload('demo-proof.txt', payload);
+  });
+
+  showBtn.addEventListener('click', () => {
+    alert('File contents preview:\\n\\n' + payload);
+  });
+
+  // OPTIONAL: attempt an automatic download after 2 seconds.
+  // NOTE: Many browsers block automatic downloads without user interaction.
+  // Keep this commented or use only when you control the environment.
+  // setTimeout(()=> triggerDownload('demo-proof.txt', payload), 2000);
+</script>
+</body>
+</html>
